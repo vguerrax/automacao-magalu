@@ -1,9 +1,11 @@
 package br.com.magazineluiza.test.magalu.stepdefinitions;
 
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.hamcrest.CoreMatchers;
 import org.openqa.selenium.WebDriver;
 
 import br.com.magazineluiza.test.magalu.pages.HomePage;
@@ -19,6 +21,7 @@ public class BuscarProdutosStepDefinitions {
 	private final HomePage homePage;
 	private ResultadoBuscaPage resultadoBuscaPage;
 
+	private String termosIntegra = null;
 	private String[] termosBuscados = null;
 
 	public BuscarProdutosStepDefinitions(final BaseStepDefinitions context) {
@@ -32,10 +35,11 @@ public class BuscarProdutosStepDefinitions {
 		homePage.acessarPaginaInicial();
 	}
 
-	@When("buscou pelo termo {string}")
+	@When("buscar/buscou pelo termo {string}")
 	public void buscouPeloTermo(String termo) {
 		homePage.informarTermoBusca(termo);
 		resultadoBuscaPage = homePage.clicarEmBuscar();
+		termosIntegra = termo;
 		termosBuscados = termo.split("\\s+");
 	}
 
@@ -47,5 +51,11 @@ public class BuscarProdutosStepDefinitions {
 				assertTrue(itemResultado.toLowerCase().contains(termo.toLowerCase()));
 			}
 		}
+	}
+
+	@Then("o sistema deve exibir a mensagem {string}")
+	public void oSistemaDeveExibirAMensagem(String mensagem) {
+		mensagem = "Sua busca por #termo# não encontrou resultado algum :(".replace("#termo#", termosIntegra);
+		assertThat(resultadoBuscaPage.mensagemNaoEncontrado(), CoreMatchers.equalTo(mensagem));
 	}
  }

@@ -11,6 +11,7 @@ public class ResultadoBuscaPage extends BasePage {
 
     private By descricaoItens = By.cssSelector("ul li.nm-product-item h2.nm-product-name");
     private By produtoCard = By.cssSelector("li.nm-product-item");
+    private By mensagemNaoEncontrado = By.cssSelector("div.nm-not-found-message1");
 	
 	public ResultadoBuscaPage(WebDriver driver) {
 		super(driver);
@@ -30,5 +31,9 @@ public class ResultadoBuscaPage extends BasePage {
     public DetalhesProdutoPage clicarNoPrimeiroItem() {
         click(produtoCard);
         return new DetalhesProdutoPage(driver);
+    }
+
+    public String mensagemNaoEncontrado() {
+	    return getText(mensagemNaoEncontrado);
     }
 }

@@ -2,6 +2,7 @@ package br.com.magazineluiza.test.magalu.stepdefinitions;
 
 import static org.junit.Assert.assertThat;
 
+import io.cucumber.java.en.Given;
 import org.hamcrest.CoreMatchers;
 import org.openqa.selenium.WebDriver;
 
@@ -45,5 +46,21 @@ public class CarrinhoStepDefinitions {
 	public void oSistemaDeveExibirOCarrinhoComOProdutoSelecionado() {
 		String produtoCarrinho = carrinhoPage.produtoNoCarrinho();
 		assertThat(produtoCarrinho, CoreMatchers.equalTo(produto)); 
+	}
+
+	@Given("adicionou um produto ao carrinho")
+	public void adicionouUmProdutoAoCarrinho() {
+		selecionarUmProduto();
+		adicionarOProdutoAoCarrinho();
+	}
+
+	@When("solicitar excluir o produto do carrinho")
+	public void solicitarExcluirOProdutoDoCarrinho() {
+		carrinhoPage.clicarEmExcluirProduto();
+	}
+
+	@Then("o sistema deve exibir a mensagem {string} informando que o carrinho esta vazio")
+	public void oSistemaDeveExibirAMensagem(String mensagem) {
+		assertThat(carrinhoPage.mensagemSacolaVazia(), CoreMatchers.equalTo(mensagem));
 	}
  }
