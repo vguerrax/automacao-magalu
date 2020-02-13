@@ -1,4 +1,4 @@
-#E-commerce Magalu
+# E-commerce Magalu
 
 To execute (with Maven):
 
