@@ -3,6 +3,7 @@ Feature: Buscar Produtos
     Background: Acessar a loja virtual
         Given o cliente acessou a loja virtual
 
+    @TES-3
     Scenario: Buscar produto na tela inicial
         When buscar pelo termo 'samsung galaxy s10'
         Then o sistema deve listar todos os produtos relacionados ao termo
