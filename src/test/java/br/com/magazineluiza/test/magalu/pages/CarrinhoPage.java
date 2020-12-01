@@ -5,9 +5,9 @@ import org.openqa.selenium.WebDriver;
 
 public class CarrinhoPage extends BasePage {
 
-    private By descricaoProdutoLabel = By.cssSelector("a.BasketItemProduct-info-title p");
-    private By excluirProdutoCarrinhoLink = By.cssSelector("span.BasketItem-delete-label");
-    private By mensagemSacolaVaziaLabel = By.cssSelector("div.EmptyBasket-title");
+    private final By descricaoProdutoLabel = By.cssSelector("a.BasketItemProduct-info-title p");
+    private final By excluirProdutoCarrinhoLink = By.cssSelector("span.BasketItem-delete-label");
+    private final By mensagemSacolaVaziaLabel = By.cssSelector("div.EmptyBasket-title");
 
     public CarrinhoPage (WebDriver driver) {
         super(driver);

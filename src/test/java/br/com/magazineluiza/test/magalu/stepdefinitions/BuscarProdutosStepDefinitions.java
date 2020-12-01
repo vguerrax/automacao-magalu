@@ -1,61 +1,55 @@
 package br.com.magazineluiza.test.magalu.stepdefinitions;
 
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
-
-import org.hamcrest.CoreMatchers;
-import org.openqa.selenium.WebDriver;
-
-import br.com.magazineluiza.test.magalu.pages.HomePage;
-import br.com.magazineluiza.test.magalu.pages.ResultadoBuscaPage;
+import br.com.magazineluiza.test.magalu.steps.HomeSteps;
+import br.com.magazineluiza.test.magalu.steps.ResultadoBuscaSteps;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import net.thucydides.core.annotations.Steps;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static br.com.magazineluiza.test.magalu.matchers.StringMatchers.containsAnyOfStrings;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
 
 public class BuscarProdutosStepDefinitions {
 
-	private final BaseStepDefinitions context;
-	private final WebDriver driver;
-	private final HomePage homePage;
-	private ResultadoBuscaPage resultadoBuscaPage;
+	@Steps
+	private HomeSteps homeSteps;
 
-	private String termosIntegra = null;
+	@Steps
+	private ResultadoBuscaSteps resultadoBuscaresultadoBuscaSteps;
+
 	private String[] termosBuscados = null;
 
-	public BuscarProdutosStepDefinitions(final BaseStepDefinitions context) {
-		this.context = context;
-		driver = this.context.driver;
-		homePage = new HomePage(driver);
-	}
-
-	@Given("o cliente acessou a loja virtual")
+	@Given("(que )o cliente acessou a loja virtual")
 	public void oClienteAcessouALojaVirtual() {
-		homePage.acessarPaginaInicial();
+		homeSteps.acessarPaginaInicial();
+		if (homeSteps.mensagemCookieExibida())
+			homeSteps.clicarEmFecharCoockies();
 	}
 
 	@When("buscar/buscou pelo termo {string}")
 	public void buscouPeloTermo(String termo) {
-		homePage.informarTermoBusca(termo);
-		resultadoBuscaPage = homePage.clicarEmBuscar();
-		termosIntegra = termo;
+		homeSteps.informarTermoBusca(termo);
+		homeSteps.clicarEmBuscar();
 		termosBuscados = termo.split("\\s+");
 	}
 
 	@Then("o sistema deve listar todos os produtos relacionados ao termo")
 	public void oSistemaDeveListarTodosOsProdutosRelacionadosAoTermo() {
-		List<String> resultados = resultadoBuscaPage.itensListados();
-		for (String termo : termosBuscados) {
-			for (String itemResultado : resultados) {
-				assertTrue(itemResultado.toLowerCase().contains(termo.toLowerCase()));
-			}
-		}
+		List<String> resultados = resultadoBuscaresultadoBuscaSteps.itensListados()
+				.stream()
+				.map(String::toLowerCase)
+				.collect(Collectors.toList());
+
+		assertThat(resultados, everyItem(anyOf(containsAnyOfStrings(termosBuscados))));
 	}
 
-	@Then("o sistema deve exibir a mensagem {string}")
+	@Then("o sistema deve exibir a mensagem")
 	public void oSistemaDeveExibirAMensagem(String mensagem) {
-		mensagem = "Sua busca por #termo# não encontrou resultado algum :(".replace("#termo#", termosIntegra);
-		assertThat(resultadoBuscaPage.mensagemNaoEncontrado(), CoreMatchers.equalTo(mensagem));
+		assertThat(resultadoBuscaresultadoBuscaSteps.mensagemNaoEncontrado(), equalTo(mensagem));
 	}
- }
+}

@@ -1,12 +1,11 @@
 package br.com.magazineluiza.test.magalu.tests;
 
+import io.cucumber.junit.CucumberOptions;
+import net.serenitybdd.cucumber.CucumberWithSerenity;
 import org.junit.runner.RunWith;
 
-import io.cucumber.junit.Cucumber;
-import io.cucumber.junit.CucumberOptions;
-
-@RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources/features/Carrinho.feature", glue = {
+@RunWith(CucumberWithSerenity.class)
+@CucumberOptions(features = "src/test/resources/features/Carrinho/Carrinho.feature", glue = {
 		"classpath:br.com.magazineluiza.test.magalu.stepdefinitions" })
 public class CarrinhoTest {
 

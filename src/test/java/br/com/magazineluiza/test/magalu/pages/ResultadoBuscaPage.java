@@ -9,13 +9,13 @@ import java.util.List;
 
 public class ResultadoBuscaPage extends BasePage {
 
-    private By descricaoItens = By.cssSelector("ul li.nm-product-item h2.nm-product-name");
-    private By produtoCard = By.cssSelector("li.nm-product-item");
-    private By mensagemNaoEncontrado = By.cssSelector("div.nm-not-found-message1");
-	
-	public ResultadoBuscaPage(WebDriver driver) {
-		super(driver);
-	}
+    private final By descricaoItens = By.cssSelector("ul li.product h3.productTitle");
+    private final By produtoCard = By.cssSelector("li.product");
+    private final By mensagemNaoEncontrado = By.cssSelector("div.header-not-found");
+
+    public ResultadoBuscaPage(WebDriver driver) {
+        super(driver);
+    }
 
     public List<String> itensListados() {
         List<String> itens = new ArrayList<>();
@@ -28,12 +28,11 @@ public class ResultadoBuscaPage extends BasePage {
         return itens;
     }
 
-    public DetalhesProdutoPage clicarNoPrimeiroItem() {
+    public void clicarNoPrimeiroItem() {
         click(produtoCard);
-        return new DetalhesProdutoPage(driver);
     }
 
     public String mensagemNaoEncontrado() {
-	    return getText(mensagemNaoEncontrado);
+        return getText(mensagemNaoEncontrado);
     }
 }

@@ -1,51 +1,49 @@
 package br.com.magazineluiza.test.magalu.stepdefinitions;
 
-import static org.junit.Assert.assertThat;
-
+import br.com.magazineluiza.test.magalu.steps.CarrinhoSteps;
+import br.com.magazineluiza.test.magalu.steps.DetalhesProdutoSteps;
+import br.com.magazineluiza.test.magalu.steps.ResultadoBuscaSteps;
+import br.com.magazineluiza.test.magalu.steps.SeguroSteps;
 import io.cucumber.java.en.Given;
-import org.hamcrest.CoreMatchers;
-import org.openqa.selenium.WebDriver;
-
-import br.com.magazineluiza.test.magalu.pages.CarrinhoPage;
-import br.com.magazineluiza.test.magalu.pages.DetalhesProdutoPage;
-import br.com.magazineluiza.test.magalu.pages.ResultadoBuscaPage;
-import br.com.magazineluiza.test.magalu.pages.SeguroPage;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import net.thucydides.core.annotations.Steps;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
 
 public class CarrinhoStepDefinitions {
 
-	private final BaseStepDefinitions context;
-	private final WebDriver driver;
-	private ResultadoBuscaPage resultadoBuscaPage;
-	private DetalhesProdutoPage detalhesProdutoPage;
-	private SeguroPage seguroPage;
-	private CarrinhoPage carrinhoPage;
+	@Steps
+	private ResultadoBuscaSteps resultadoBuscaSteps;
+
+	@Steps
+	private DetalhesProdutoSteps detalhesProdutoSteps;
+
+	@Steps
+	private SeguroSteps seguroSteps;
+
+	@Steps
+	private CarrinhoSteps carrinhoSteps;
 
 	private String produto = null;
 
-	public CarrinhoStepDefinitions(final BaseStepDefinitions context) {
-		this.context = context;
-		driver = this.context.driver;
-		resultadoBuscaPage = new ResultadoBuscaPage(driver);
-	}
-
 	@When("selecionar um produto")
 	public void selecionarUmProduto() {
-		detalhesProdutoPage = resultadoBuscaPage.clicarNoPrimeiroItem();
+		resultadoBuscaSteps.clicarNoPrimeiroItem();
 	}
 
 	@When("adicionar o produto ao carrinho")
 	public void adicionarOProdutoAoCarrinho() {
-		produto = detalhesProdutoPage.clicarEmAdicionarAoCarrinho();
-		seguroPage = new SeguroPage(driver);
-		carrinhoPage = seguroPage.clicarEmContinuar();
+		produto = detalhesProdutoSteps.clicarEmAdicionarAoCarrinho();
+		if (seguroSteps.seguroExibido())
+			seguroSteps.clicarEmContinuar();
 	}
 
 	@Then("o sistema deve exibir o carrinho com o produto selecionado")
 	public void oSistemaDeveExibirOCarrinhoComOProdutoSelecionado() {
-		String produtoCarrinho = carrinhoPage.produtoNoCarrinho();
-		assertThat(produtoCarrinho, CoreMatchers.equalTo(produto)); 
+		String produtoCarrinho = carrinhoSteps.produtoNoCarrinho();
+		assertThat(produtoCarrinho, equalTo(produto));
 	}
 
 	@Given("adicionou um produto ao carrinho")
@@ -56,11 +54,11 @@ public class CarrinhoStepDefinitions {
 
 	@When("solicitar excluir o produto do carrinho")
 	public void solicitarExcluirOProdutoDoCarrinho() {
-		carrinhoPage.clicarEmExcluirProduto();
+		carrinhoSteps.clicarEmExcluirProduto();
 	}
 
 	@Then("o sistema deve exibir a mensagem {string} informando que o carrinho esta vazio")
 	public void oSistemaDeveExibirAMensagem(String mensagem) {
-		assertThat(carrinhoPage.mensagemSacolaVazia(), CoreMatchers.equalTo(mensagem));
+		assertThat(carrinhoSteps.mensagemSacolaVazia(), equalTo(mensagem));
 	}
- }
+}
