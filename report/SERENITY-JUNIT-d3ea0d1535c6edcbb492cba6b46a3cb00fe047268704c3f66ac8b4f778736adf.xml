@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite errors="0" failures="0" name="Buscar Produtos" skipped="0" tests="2" time="24.27" timestamp="2020-12-01 03:04:27"><testcase name="Buscar produto na tela inicial"/><testcase name="Buscar produto inexistente"/></testsuite>

@@ -1,0 +1,3 @@
+"Story","Title","Result","Date","Stability","Duration (s)"
+"Buscar Produtos","Buscar produto na tela inicial","SUCCESS","2020-12-01T15:04:27.498036-03:00[America/Sao_Paulo]","0.0","14.04"
+"Buscar Produtos","Buscar produto inexistente","SUCCESS","2020-12-01T15:04:41.774731-03:00[America/Sao_Paulo]","0.0","10.23"

@@ -1,0 +1,5 @@
+"Story","Title","Result","Date","Stability","Duration (s)"
+"Carrinho","Adicionar produto ao carrinho","SUCCESS","2020-12-01T15:04:27.492884-03:00[America/Sao_Paulo]","0.0","17.96"
+"Carrinho","Remover produto do carrinho","SUCCESS","2020-12-01T15:04:45.556027-03:00[America/Sao_Paulo]","0.0","15.95"
+"Buscar Produtos","Buscar produto na tela inicial","SUCCESS","2020-12-01T15:04:27.498036-03:00[America/Sao_Paulo]","0.0","14.04"
+"Buscar Produtos","Buscar produto inexistente","SUCCESS","2020-12-01T15:04:41.774731-03:00[America/Sao_Paulo]","0.0","10.23"
