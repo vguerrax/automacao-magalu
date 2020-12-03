@@ -3,5 +3,5 @@
 To execute (with Maven):
 
  ```
-	mvn clean test
+	mvn clean verify
  ```
