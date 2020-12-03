@@ -10,10 +10,12 @@ Funcionalidade: Buscar Produtos - Screenplay
   Contexto:
     Dado que "João" acessou a página inicial
 
+  @5
   Cenário: Buscar produto na tela inicial
     Quando ele pesquisa pelo termo 'samsung galaxy s10'
     Então ele deve ver a lista de todos os produtos relacionados ao termo
 
+  @6
   Cenário: Buscar produto inexistente
     Quando ele pesquisa pelo termo '1234567890'
     Então ele deve ver a mensagem

@@ -2,6 +2,7 @@ package br.com.magazineluiza.test.magalu.pages;
 
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.screenplay.Ability;
+import net.thucydides.core.annotations.WhenPageOpens;
 import org.apache.commons.lang3.time.StopWatch;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -19,6 +20,11 @@ public class BasePage extends PageObject implements Ability {
 
 	public static BasePage abrirONavegador() {
 		return new BasePage();
+	}
+
+	@WhenPageOpens
+	public void maximiseScreen() {
+		getDriver().manage().window().maximize();
 	}
 
 	public JavascriptExecutor javaScriptExecutor() {

@@ -2,6 +2,7 @@ package br.com.magazineluiza.test.magalu.stepdefinitions;
 
 import br.com.magazineluiza.test.magalu.steps.HomeSteps;
 import br.com.magazineluiza.test.magalu.steps.ResultadoBuscaSteps;
+import br.com.magazineluiza.test.magalu.utils.ReportUtils;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -11,8 +12,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static br.com.magazineluiza.test.magalu.matchers.StringMatchers.containsAnyOfStrings;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
 
 public class BuscarProdutosStepDefinitions {
 
@@ -40,7 +41,9 @@ public class BuscarProdutosStepDefinitions {
 
 	@Then("o sistema deve listar todos os produtos relacionados ao termo")
 	public void oSistemaDeveListarTodosOsProdutosRelacionadosAoTermo() {
-		List<String> resultados = resultadoBuscaresultadoBuscaSteps.itensListados()
+		List<String> resultados = resultadoBuscaresultadoBuscaSteps.itensListados();
+		ReportUtils.appendListToReportWithTitle(resultados, "Produtos Listados");
+		resultados = resultados
 				.stream()
 				.map(String::toLowerCase)
 				.collect(Collectors.toList());

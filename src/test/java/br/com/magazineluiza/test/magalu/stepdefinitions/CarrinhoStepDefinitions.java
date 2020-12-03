@@ -10,7 +10,7 @@ import io.cucumber.java.en.When;
 import net.thucydides.core.annotations.Steps;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class CarrinhoStepDefinitions {
 

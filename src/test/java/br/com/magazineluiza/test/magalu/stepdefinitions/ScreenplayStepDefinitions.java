@@ -12,7 +12,6 @@ import io.cucumber.java.pt.Quando;
 import net.serenitybdd.screenplay.Actor;
 
 import static br.com.magazineluiza.test.magalu.matchers.StringMatchers.containsAnyOfStrings;
-import static br.com.magazineluiza.test.magalu.pages.BasePage.abrirONavegador;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
