@@ -1,7 +1,6 @@
 package br.com.magazineluiza.test.magalu.pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
 public class CarrinhoPage extends BasePage {
 
@@ -9,8 +8,8 @@ public class CarrinhoPage extends BasePage {
     private final By excluirProdutoCarrinhoLink = By.cssSelector("span.BasketItem-delete-label");
     private final By mensagemSacolaVaziaLabel = By.cssSelector("div.EmptyBasket-title");
 
-    public CarrinhoPage (WebDriver driver) {
-        super(driver);
+    public CarrinhoPage () {
+        super();
     }
 
     public String produtoNoCarrinho() {

@@ -8,7 +8,7 @@
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-	<name>Teste Automatizados - Magalu</name>
+	<name>Teste Automatizados de Interface - Magalu</name>
 
 	<properties>
 		<serenity.version>2.3.4</serenity.version>
@@ -17,8 +17,8 @@
 		<serenity.restassured.version>2.3.4</serenity.restassured.version>
 		<serenity.cucumber.package>serenity-cucumber6
 		</serenity.cucumber.package>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
 		<project.build.sourceEnconding>UTF-8</project.build.sourceEnconding>
 		<project.report.outputEnconding>UTF-8</project.report.outputEnconding>
 		<parallel.tests>1</parallel.tests>
@@ -34,10 +34,24 @@
 		</dependency>
 		<dependency>
 			<groupId>net.serenity-bdd</groupId>
+			<artifactId>serenity-junit</artifactId>
+			<version>${serenity.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>net.serenity-bdd</groupId>
 			<artifactId>${serenity.cucumber.package}</artifactId>
 			<version>${serenity.cucumber.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>net.serenity-bdd</groupId>
+			<artifactId>serenity-screenplay</artifactId>
+			<version>${serenity.version}</version>
+			<scope>test</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>net.serenity-bdd</groupId>
 			<artifactId>serenity-single-page-report</artifactId>
@@ -152,7 +166,7 @@
 					</includes>
 					<parallel>classes</parallel>
 					<threadCount>${parallel.tests}</threadCount>
-					<forkCount>${parallel.tests}</forkCount>
+					<forkCount>2</forkCount>
 					<argLine>-Xmx1024m</argLine>
 					<systemProperties>
 						<surefire.rerunFailingTestsCount>0

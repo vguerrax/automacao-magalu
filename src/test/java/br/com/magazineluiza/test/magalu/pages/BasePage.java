@@ -1,6 +1,7 @@
 package br.com.magazineluiza.test.magalu.pages;
 
 import net.serenitybdd.core.pages.PageObject;
+import net.serenitybdd.screenplay.Ability;
 import org.apache.commons.lang3.time.StopWatch;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -10,21 +11,22 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BasePage extends PageObject {
+public class BasePage extends PageObject implements Ability {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(BasePage.class);
 
 	protected long waitTime = 30000;
 
-	protected WebDriver driver;
-	protected WebDriverWait wait;
-	protected JavascriptExecutor javaScriptExecutor = null;
+	public static BasePage abrirONavegador() {
+		return new BasePage();
+	}
 
-	public BasePage(WebDriver driver) {
-		this.driver = driver;
-		this.wait = new WebDriverWait(driver, waitTime/1000);
-		this.javaScriptExecutor = (JavascriptExecutor) driver;
-		driver.manage().window().maximize();
+	public JavascriptExecutor javaScriptExecutor() {
+		return (JavascriptExecutor) getDriver();
+	}
+
+	public WebDriverWait webDriverWait() {
+		return new WebDriverWait(getDriver(), waitTime/1000);
 	}
 
 	private void waitUntilPageReady() {
@@ -32,7 +34,7 @@ public class BasePage extends PageObject {
 		timeOut.start();
 
 		while (timeOut.getTime() <= waitTime) {
-			if (javaScriptExecutor.executeScript("return document.readyState").toString().equals("complete")) {
+			if (javaScriptExecutor().executeScript("return document.readyState").toString().equals("complete")) {
 				timeOut.stop();
 				break;
 			}
@@ -40,34 +42,34 @@ public class BasePage extends PageObject {
 	}
 
 	public void scrollToElement(WebElement element) {
-		javaScriptExecutor.executeScript("arguments[0].scrollIntoView(true);", element);
+		javaScriptExecutor().executeScript("arguments[0].scrollIntoView(true);", element);
 	}
 
 	protected WebElement waitForElement(By locator) {
 		waitUntilPageReady();
-		wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-		WebElement element = driver.findElement(locator);
-		wait.until(ExpectedConditions.visibilityOf(element));
+		webDriverWait().until(ExpectedConditions.presenceOfElementLocated(locator));
+		WebElement element = getDriver().findElement(locator);
+		webDriverWait().until(ExpectedConditions.visibilityOf(element));
 		return element;
 	}
 
 	protected WebElement waitForElement(WebElement element) {
 		waitUntilPageReady();
-		wait.until(ExpectedConditions.visibilityOf(element));
+		webDriverWait().until(ExpectedConditions.visibilityOf(element));
 		return element;
 	}
 
 	protected WebElement waitForElementByTime(By locator, int time) {
-		WebDriverWait waitTime = new WebDriverWait(driver, time);
+		WebDriverWait waitTime = new WebDriverWait(getDriver(), time);
 		waitTime.until(ExpectedConditions.presenceOfElementLocated(locator));
-		WebElement element = driver.findElement(locator);
+		WebElement element = getDriver().findElement(locator);
 		waitTime.until(ExpectedConditions.visibilityOf(element));
 		return element;
 	}
 
 	protected WebElement waitForElementDisabled(By locator) {
-		wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-		return driver.findElement(locator);
+		webDriverWait().until(ExpectedConditions.presenceOfElementLocated(locator));
+		return getDriver().findElement(locator);
 	}
 
 	protected void click(By locator) {
@@ -122,7 +124,7 @@ public class BasePage extends PageObject {
 	}
 
 	protected void mouseOver(By locator) {
-		Actions action = new Actions(driver);
+		Actions action = new Actions(getDriver());
 		action.moveToElement(waitForElement(locator)).build().perform();
 	}
 
@@ -139,10 +141,10 @@ public class BasePage extends PageObject {
 	}
 
 	protected boolean returnIfElementExists(By locator) {
-		boolean result = false;
+		boolean result;
 
 		try {
-			wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+			webDriverWait().until(ExpectedConditions.presenceOfElementLocated(locator));
 			result = true;
 		} catch (Exception e) {
 			result = false;
@@ -152,12 +154,12 @@ public class BasePage extends PageObject {
 	}
 
 	protected boolean returnIfElementIsEnabled(By locator) {
-		wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-		return driver.findElement(locator).isEnabled();
+		webDriverWait().until(ExpectedConditions.presenceOfElementLocated(locator));
+		return getDriver().findElement(locator).isEnabled();
 	}
 
 	protected boolean returnIfElementIsSelected(By locator) {
-		wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-		return driver.findElement(locator).isSelected();
+		webDriverWait().until(ExpectedConditions.presenceOfElementLocated(locator));
+		return getDriver().findElement(locator).isSelected();
 	}
 }
