@@ -15,8 +15,8 @@ public class ResultadosDaPesquisa implements Question<List<String>> {
     @Step("{0} vê os resultados da pesquisa")
     public List<String> answeredBy(Actor actor) {
         return Text.of(ResultadoBuscaPage.ITENS_LISTADOS)
-                .viewedBy(actor)
-                .asList()
+                .asListOf(String.class)
+                .answeredBy(actor)
                 .stream()
                 .map(String::toLowerCase)
                 .collect(Collectors.toList());

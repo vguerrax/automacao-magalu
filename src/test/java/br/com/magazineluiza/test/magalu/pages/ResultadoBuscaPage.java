@@ -9,17 +9,17 @@ import java.util.List;
 
 public class ResultadoBuscaPage extends BasePage {
 
-    private final By descricaoItens = By.cssSelector("ul li.product h3.productTitle");
-    private final By produtoCard = By.cssSelector("li.product");
-    private final By mensagemNaoEncontrado = By.cssSelector("div.header-not-found");
+    private static final By descricaoItens = By.cssSelector("h2[data-testid='product-title']");
+    private static final By produtoCard = By.cssSelector("div[data-testid='product-list'] ul[data-testid='list']");
+    private static final By mensagemNaoEncontrado = By.cssSelector("h1[data-testid='text-list-title']");
 
     public static Target ITENS_LISTADOS = Target
             .the("Itens listados")
-            .located(By.cssSelector("ul li.product h3.productTitle"));
+            .located(descricaoItens);
 
     public static Target MENSAGEM_ITEM_NAO_ENCONTRADO = Target
             .the("Mensagem de item não encontrado")
-            .located(By.cssSelector("div.header-not-found"));
+            .located(mensagemNaoEncontrado);
 
     public ResultadoBuscaPage() {
         super();

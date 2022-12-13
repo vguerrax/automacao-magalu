@@ -14,8 +14,7 @@ public class MensagemDeItemNaoEncontrado implements Question<String> {
     @Step("{0} vê os resultados da pesquisa")
     public String answeredBy(Actor actor) {
         return Text.of(ResultadoBuscaPage.MENSAGEM_ITEM_NAO_ENCONTRADO)
-                .viewedBy(actor)
-                .asString();
+                .answeredBy(actor);
     }
 
     public static Question<String> exibida() {

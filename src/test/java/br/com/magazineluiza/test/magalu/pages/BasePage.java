@@ -12,11 +12,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Duration;
+import java.time.temporal.TemporalUnit;
+
 public class BasePage extends PageObject implements Ability {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(BasePage.class);
 
-	protected long waitTime = 30000;
+	protected Duration waitTime = Duration.ofSeconds(5);
 
 	public static BasePage abrirONavegador() {
 		return new BasePage();
@@ -32,14 +35,14 @@ public class BasePage extends PageObject implements Ability {
 	}
 
 	public WebDriverWait webDriverWait() {
-		return new WebDriverWait(getDriver(), waitTime/1000);
+		return new WebDriverWait(getDriver(), waitTime);
 	}
 
 	private void waitUntilPageReady() {
 		StopWatch timeOut = new StopWatch();
 		timeOut.start();
 
-		while (timeOut.getTime() <= waitTime) {
+		while (timeOut.getTime() <= waitTime.toMillis()) {
 			if (javaScriptExecutor().executeScript("return document.readyState").toString().equals("complete")) {
 				timeOut.stop();
 				break;
@@ -65,8 +68,8 @@ public class BasePage extends PageObject implements Ability {
 		return element;
 	}
 
-	protected WebElement waitForElementByTime(By locator, int time) {
-		WebDriverWait waitTime = new WebDriverWait(getDriver(), time);
+	protected WebElement waitForElementByTime(By locator, long time) {
+		WebDriverWait waitTime = new WebDriverWait(getDriver(), Duration.ofMillis(time));
 		waitTime.until(ExpectedConditions.presenceOfElementLocated(locator));
 		WebElement element = getDriver().findElement(locator);
 		waitTime.until(ExpectedConditions.visibilityOf(element));
@@ -83,7 +86,7 @@ public class BasePage extends PageObject implements Ability {
 		StopWatch timeOut = new StopWatch();
 		timeOut.start();
 
-		while (timeOut.getTime() <= waitTime) {
+		while (timeOut.getTime() <= waitTime.toMillis()) {
 			WebElement element = null;
 
 			try {

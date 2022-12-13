@@ -51,7 +51,7 @@ public class BuscarProdutosStepDefinitions {
 		assertThat(resultados, everyItem(anyOf(containsAnyOfStrings(termosBuscados))));
 	}
 
-	@Then("o sistema deve exibir a mensagem")
+	@Then("o sistema deve exibir a mensagem {string}")
 	public void oSistemaDeveExibirAMensagem(String mensagem) {
 		assertThat(resultadoBuscaresultadoBuscaSteps.mensagemNaoEncontrado(), equalTo(mensagem));
 	}

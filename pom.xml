@@ -11,12 +11,11 @@
 	<name>Teste Automatizados de Interface - Magalu</name>
 
 	<properties>
-		<serenity.version>2.3.4</serenity.version>
-		<serenity.maven.version>2.3.4</serenity.maven.version>
-		<serenity.cucumber.version>2.3.4</serenity.cucumber.version>
-		<serenity.restassured.version>2.3.4</serenity.restassured.version>
-		<serenity.cucumber.package>serenity-cucumber6
-		</serenity.cucumber.package>
+		<serenity.version>3.3.10</serenity.version>
+		<serenity.maven.version>${serenity.version}</serenity.maven.version>
+		<serenity.restassured.version>${serenity.version}</serenity.restassured.version>
+		<serenity.cucumber.version>${serenity.version}</serenity.cucumber.version>
+		<serenity.cucumber.package>serenity-cucumber</serenity.cucumber.package>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
 		<project.build.sourceEnconding>UTF-8</project.build.sourceEnconding>
@@ -32,6 +31,7 @@
 			<version>${serenity.version}</version>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>net.serenity-bdd</groupId>
 			<artifactId>serenity-junit</artifactId>
@@ -45,6 +45,7 @@
 			<version>${serenity.cucumber.version}</version>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>net.serenity-bdd</groupId>
 			<artifactId>serenity-screenplay</artifactId>
@@ -58,54 +59,36 @@
 			<version>${serenity.version}</version>
 		</dependency>
 
+<!--		<dependency>-->
+<!--			<groupId>net.serenity-bdd</groupId>-->
+<!--			<artifactId>serenity-model</artifactId>-->
+<!--			<version>${serenity.version}</version>-->
+<!--			<scope>test</scope>-->
+<!--		</dependency>-->
+
 		<!-- Others -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.13.1</version>
-		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.12</version>
+			<version>1.18.24</version>
 		</dependency>
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.11.0</version>
+			<version>2.14.1</version>
 		</dependency>
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jsr310</artifactId>
-			<version>2.11.0</version>
+			<version>2.14.1</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.30</version>
-			<scope>test</scope>
-		</dependency>
-
-
-		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
-			<version>20190722</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.zxing</groupId>
-			<artifactId>core</artifactId>
-			<version>3.4.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.zxing</groupId>
-			<artifactId>javase</artifactId>
-			<version>3.4.0</version>
-		</dependency>
-		<dependency>
-			<groupId>net.serenity-bdd</groupId>
-			<artifactId>serenity-model</artifactId>
-			<version>2.3.4</version>
+			<version>2.0.5</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

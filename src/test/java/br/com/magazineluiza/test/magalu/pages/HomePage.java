@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 @DefaultUrl("page:home.page")
 public class HomePage extends BasePage {
 
-    private final By buscaField = By.id("inpHeaderSearch");
-    private final By buscarButton = By.id("btnHeaderSearch");
-    private final By fecharCookiesButton = By.cssSelector("p.text-button-cookie");
+    private static final By buscaField = By.cssSelector("input[data-testid='input-search']");
+    private static final By buscarButton = By.cssSelector("svg[data-testid='search-submit']");
+    private static final By fecharCookiesButton = By.cssSelector("button[data-testid='button-message-box']");
 
     public HomePage() {
         super();
@@ -20,7 +20,7 @@ public class HomePage extends BasePage {
 
     public static Target CAMPO_BUSCA = Target
             .the("Campo de busca")
-            .located(By.id("inpHeaderSearch"));
+            .located(buscaField);
 
     public void acessarPaginaInicial() {
         open();
